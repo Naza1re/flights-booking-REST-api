@@ -1,10 +1,7 @@
 package com.example.FlightsbookingRESTAPI.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -17,11 +14,18 @@ public class Flights {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "name")
+    private String name;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "departure_date")
+    private String departure_date;
+
+    @Column(name = "departure_time")
+    private String departure_time;
+
+    @Column(name = "arrival")
+    private String arrival;
+
+    
+
 }

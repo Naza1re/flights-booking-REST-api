@@ -1,5 +1,6 @@
 package com.example.FlightsbookingRESTAPI.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -18,11 +19,11 @@ public class Airport {
     @Id
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "name")
+    private String name;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "street")
+    private String street;
 
-    public Long getId() {
-        return id;
-    }
 }
