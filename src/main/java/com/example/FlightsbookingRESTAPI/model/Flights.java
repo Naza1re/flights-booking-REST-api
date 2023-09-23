@@ -26,6 +26,8 @@ public class Flights {
     @Column(name = "arrival")
     private String arrival;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "airport_id")
+    private Airport airport;
 
 }
