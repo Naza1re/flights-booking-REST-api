@@ -1,5 +1,6 @@
 package com.example.FlightsbookingRESTAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "airport")
 public class Airport {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")

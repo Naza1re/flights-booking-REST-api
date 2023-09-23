@@ -6,6 +6,8 @@ import com.example.FlightsbookingRESTAPI.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FlightsService {
 
@@ -18,8 +20,13 @@ public class FlightsService {
         this.flightRepository = flightRepository;
     }
 
-    public  void save(Flights flights){
+    public Flights save(Flights flights){
         flightRepository.save(flights);
+        return flights;
+    }
+    public List<Flights> findAll()
+    {
+        return flightRepository.findAll();
     }
 
 
