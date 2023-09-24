@@ -35,8 +35,14 @@ public class Flights {
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
+
+    @Column(name = "passenger")
+    @OneToMany(mappedBy = "flights", cascade = CascadeType.ALL)
     private List<Passenger> passenger;
 
-    private Reservation reservation;
+
+    @Column(name = "reservation")
+    @OneToMany(mappedBy = "flights",cascade = CascadeType.ALL)
+    private List<Reservation> reservation;
 
 }

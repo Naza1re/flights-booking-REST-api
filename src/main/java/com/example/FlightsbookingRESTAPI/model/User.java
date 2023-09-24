@@ -1,21 +1,15 @@
 package com.example.FlightsbookingRESTAPI.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.PersistenceConstructor;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "User")
 public class User {
     @Id
@@ -26,12 +20,17 @@ public class User {
 
     @Column(name = "email")
     private String email;
-
+    
     @Column(name = "phone")
     private String phone;
 
+
+    @Column(name = "reservation")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
 
+    public User() {
 
+    }
 }

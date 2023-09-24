@@ -1,34 +1,37 @@
 package com.example.FlightsbookingRESTAPI.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
-@Table(name = "User")
+
+@AllArgsConstructor
+@Table(name = "reservation")
 public class Reservation {
     @Id
     private Long id;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "flights_id")
+    private Flights flights;
 
-    @Column(name = "f")
-    private List<Flights> flights;
 
+    @OneToOne
+    @JoinColumn(name = "passenger_id")
     private Passenger passenger;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
+    public Reservation() {
 
-
+    }
 }
