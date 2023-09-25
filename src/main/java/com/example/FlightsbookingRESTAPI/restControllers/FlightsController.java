@@ -1,8 +1,11 @@
     package com.example.FlightsbookingRESTAPI.restControllers;
 
+    import com.example.FlightsbookingRESTAPI.exeptions.AirportNotFoundException;
+    import com.example.FlightsbookingRESTAPI.exeptions.FlightCreationException;
     import com.example.FlightsbookingRESTAPI.model.Flights;
     import com.example.FlightsbookingRESTAPI.services.FlightsService;
     import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
 
     import java.util.List;
@@ -26,4 +29,6 @@
         public List<Flights> getAllAirports(){
             return flightsService.findAll();
         }
+
+
     }

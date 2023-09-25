@@ -45,4 +45,14 @@ public class Flights {
     @OneToMany(mappedBy = "flights",cascade = CascadeType.ALL)
     private List<Reservation> reservation;
 
+
+    @ManyToOne
+    @JoinColumn(name = "plane_id")
+    private Plane plane;
+
+
+
+
+
+
 }
