@@ -25,13 +25,10 @@ public class AirportService {
     public  List<Airport> findAll(){
         return airportRepository.findAll();
     }
-    public List<Airport> finsAllByName(String name){
-        return airportRepository.findAirportByName(name);
+    public Airport findByName(String name){
+        return (Airport) airportRepository.findAirportByName(name);
     }
     public Airport findAirportById(Long id){
         return airportRepository.findAllById(id);
-    }
-    public List<Airport> findAirportsByCity(String name){
-        return airportRepository.findAirportByCity(name);
     }
 }

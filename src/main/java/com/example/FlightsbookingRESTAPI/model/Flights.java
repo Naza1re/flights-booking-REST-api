@@ -45,6 +45,12 @@ public class Flights {
     @OneToMany(mappedBy = "flights",cascade = CascadeType.ALL)
     private List<Reservation> reservation;
 
+    public Flights(String name, String departure_date, String departure_time, String arrival) {
+        this.name = name;
+        this.departure_date = departure_date;
+        this.departure_time = departure_time;
+        this.arrival = arrival;
+    }
 
     @ManyToOne
     @JoinColumn(name = "plane_id")

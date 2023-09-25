@@ -21,4 +21,7 @@ public class ReservationService {
     public List<Reservation> getAllReservations(){
         return repository.findAll();
     }
+    public Reservation getReservationById(Long id){
+        return repository.getReferenceById(id);
+    }
 }

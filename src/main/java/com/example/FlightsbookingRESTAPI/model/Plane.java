@@ -23,18 +23,19 @@ public class Plane {
     @JoinColumn(name = "pilot_id")
     private Pilot pilot;
 
+    public Plane(String name,Pilot pilot){
+        this.name = name;
+
+    }
+
+
     @JsonIgnore
     @Column(name = "flights")
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
     private List<Flights> flights;
 
 
+    public Plane() {
 
-
-
-
-
-
-
-
+    }
 }

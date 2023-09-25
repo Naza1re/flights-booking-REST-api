@@ -22,4 +22,7 @@ public class PassengerService {
     public List<Passenger> getAllPassenger(){
         return passengerRepository.findAll();
     }
+    public Passenger getPassengerById(Long id){
+        return  passengerRepository.getReferenceById(id);
+    }
 }

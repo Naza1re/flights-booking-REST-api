@@ -27,5 +27,13 @@ public class Pilot {
     private Plane plane;
 
 
+    public Pilot(String name,int age){
+        this.name = name;
+        this.age = age;
+    }
 
+
+    public Pilot() {
+
+    }
 }

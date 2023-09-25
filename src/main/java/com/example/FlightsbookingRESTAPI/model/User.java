@@ -23,7 +23,7 @@ public class User {
     
     @Column(name = "phone")
     private String phone;
-
+    
 
     @Column(name = "reservation")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

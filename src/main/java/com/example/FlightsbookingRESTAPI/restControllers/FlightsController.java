@@ -29,6 +29,4 @@
         public List<Flights> getAllAirports(){
             return flightsService.findAll();
         }
-
-
     }

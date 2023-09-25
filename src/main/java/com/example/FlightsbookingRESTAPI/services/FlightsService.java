@@ -34,5 +34,8 @@ public class FlightsService {
     public List<Flights> findAll() {
         return flightRepository.findAll();
     }
+    public Flights getFlightsById(Long id){
+        return flightRepository.getReferenceById(id);
+    }
 
 }
