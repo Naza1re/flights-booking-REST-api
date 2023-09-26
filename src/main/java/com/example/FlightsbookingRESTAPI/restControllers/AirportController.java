@@ -1,12 +1,13 @@
 package com.example.FlightsbookingRESTAPI.restControllers;
 
+import com.example.FlightsbookingRESTAPI.dto.AirportDTO;
+import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Airport;
-import com.example.FlightsbookingRESTAPI.model.Flights;
-import com.example.FlightsbookingRESTAPI.model.Plane;
-import com.example.FlightsbookingRESTAPI.repository.AirportRepository;
 import com.example.FlightsbookingRESTAPI.services.AirportService;
 import com.example.FlightsbookingRESTAPI.services.FlightsService;
 import com.example.FlightsbookingRESTAPI.services.PlaneService;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,40 +18,28 @@ public class AirportController {
     private final PlaneService planeService;
     private final FlightsService flightsService;
 
-    public AirportController(AirportService airportService, PlaneService planeService, FlightsService flightsService) {
+    private final ModelMapper modelMapper;
+
+    public AirportController(AirportService airportService, PlaneService planeService, FlightsService flightsService, ModelMapper modelMapper) {
         this.airportService = airportService;
         this.planeService = planeService;
         this.flightsService = flightsService;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/add-airport")
-    public Airport addAirport(@RequestBody Airport airport){
+    public HttpStatus addAirport(@RequestBody Airport airport){
         return airportService.save(airport);
     }
-    @PostMapping("/{id}/addFlight")
-    public Flights addFlight(@RequestBody Flights flights, @PathVariable Long id){
-        Airport airport = airportService.findAirportById(id);
-        flights.setAirport(airport);
-        return flightsService.save(flights);
-    }
-    @PostMapping("/{id}/{id2}/addPlane")
-    public Flights addPlaneToFlights(@PathVariable Long id, @PathVariable Long id2){
-        Flights flights = flightsService.getFlightsById(id);
-        Plane plane = planeService.getPlaneById(id2);
-        flights.setPlane(plane);
-        return flightsService.save(flights);
-    }
-    @GetMapping("/{id}")
-    public Airport getAirport(@PathVariable Long id){
-        return airportService.findAirportById(id);
-    }
-    @PostMapping("/getAirportByName")
-    public Airport getAirportByName(@RequestBody String name){
+
+    @GetMapping("/{airport_name}")
+    public Airport getAirport(@PathVariable("airport_name") String name){
         return airportService.findByName(name);
     }
-    @GetMapping("/getAllByName/{id}")
-    public Airport getAirportById(@PathVariable Long id){
-        return airportService.findAirportById(id);
+    @DeleteMapping(path = "/{airport_name}")
+    public HttpStatus deleteAirport(@PathVariable("airport_name") String airportName) throws ResponseNotFoundException {
+        return airportService.deleteAirportByName(airportName);
+
     }
 
 
