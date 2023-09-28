@@ -32,6 +32,10 @@ public class Airport {
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
     private List<Flights> flightsList;
 
+    @Column(name = "plane")
+    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL)
+    private List<Plane> planeList;
+
 
 
 }

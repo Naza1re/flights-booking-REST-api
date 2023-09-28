@@ -27,12 +27,21 @@ public class Plane {
         this.name = name;
 
     }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "airport_id")
+    private Airport airport;
 
 
     @JsonIgnore
     @Column(name = "flights")
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
     private List<Flights> flights;
+
+
+    @Column(name = "passenger")
+    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
+    private List<Passenger> passenger;
 
 
     public Plane() {

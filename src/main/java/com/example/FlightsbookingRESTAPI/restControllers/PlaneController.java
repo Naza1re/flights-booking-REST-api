@@ -1,14 +1,17 @@
 package com.example.FlightsbookingRESTAPI.restControllers;
 
 import com.example.FlightsbookingRESTAPI.dto.FlightsDTO;
+import com.example.FlightsbookingRESTAPI.exeptions.AirportNotFoundException;
+import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Flights;
 import com.example.FlightsbookingRESTAPI.model.Plane;
 import com.example.FlightsbookingRESTAPI.services.FlightsService;
 import com.example.FlightsbookingRESTAPI.services.PlaneService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/planes")
+@RequestMapping("/{airport_name}/planes")
 public class PlaneController {
 
     private final PlaneService planeService;
@@ -19,24 +22,17 @@ public class PlaneController {
         this.flightsService = flightsService;
     }
 
-    @PostMapping("/add-plane")
-    public Plane addPlane(@RequestBody Plane plane){
-        return planeService.save(plane);
+    @PostMapping("/add-plane/{type_of_plane}")
+    public HttpStatus addPlane(@PathVariable("type_of_plane") String type, @PathVariable("airport_name") String name, @RequestBody Plane plane) throws AirportNotFoundException, ResponseNotFoundException {
+        return planeService.addPlane(name,plane,type);
+    }
+    @DeleteMapping("/delete-plane")
+    public HttpStatus deletePlane(@PathVariable String airport_name,Long id) throws AirportNotFoundException {
+        return planeService.delete(airport_name,id);
+
+
     }
 
-    @PostMapping("/{id}/{id2}/addPlane")
-    public FlightsDTO addPlaneToFlights(@PathVariable Long id, @PathVariable Long id2){
-        Flights flights = flightsService.getFlightsById(id);
-        Plane plane = planeService.getPlaneById(id2);
-        flights.setPlane(plane);
-        FlightsDTO flightsDTO = new FlightsDTO();
-        flightsDTO.setArrival(flights.getArrival());
-        flightsDTO.setDeparture_date(flights.getDeparture_date());
-        flightsDTO.setDeparture_time(flights.getDeparture_time());
-        flightsDTO.setName(flights.getName());
-        flightsService.save(flights);
-        return flightsDTO;
-    }
 
 
 }

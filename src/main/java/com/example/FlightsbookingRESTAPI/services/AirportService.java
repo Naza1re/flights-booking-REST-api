@@ -20,10 +20,6 @@ public class AirportService {
         this.airportRepository = airportRepository;
     }
 
-
-
-
-
      public HttpStatus save(Airport airport){
         airportRepository.save(airport);
         return HttpStatus.CREATED;
@@ -38,6 +34,9 @@ public class AirportService {
         } else {
             return null;
         }
+    }
+    public List<Airport> getAllAirports(){
+        return airportRepository.findAll();
     }
 
     public Airport findAirportById(Long id){

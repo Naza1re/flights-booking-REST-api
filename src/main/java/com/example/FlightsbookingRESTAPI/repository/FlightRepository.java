@@ -7,5 +7,6 @@ import org.yaml.snakeyaml.events.Event;
 
 @Repository
 public interface FlightRepository extends JpaRepository<Flights, Long> {
+    public Flights getFlightsById(Long id);
 
 }

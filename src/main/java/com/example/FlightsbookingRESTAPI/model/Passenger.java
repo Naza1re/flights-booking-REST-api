@@ -19,8 +19,9 @@ public class Passenger {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "flights_id")
-    private Flights flights;
+    @JoinColumn(name = "plane_id")
+    private Plane plane;
+
     @JsonIgnore
     @OneToOne(mappedBy = "passenger")
     private Reservation reservation;

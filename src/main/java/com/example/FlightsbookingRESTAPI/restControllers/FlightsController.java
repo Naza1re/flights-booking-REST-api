@@ -1,10 +1,13 @@
     package com.example.FlightsbookingRESTAPI.restControllers;
 
-    import com.example.FlightsbookingRESTAPI.model.Airport;
+    import com.example.FlightsbookingRESTAPI.exeptions.PlaneNotFoundException;
+    import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
+
     import com.example.FlightsbookingRESTAPI.model.Flights;
-    import com.example.FlightsbookingRESTAPI.services.AirportService;
+
     import com.example.FlightsbookingRESTAPI.services.FlightsService;
-    import org.springframework.beans.factory.annotation.Autowired;
+
+    import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
     import org.springframework.web.bind.annotation.*;
 
@@ -13,32 +16,31 @@
     @RestController
     @RequestMapping("/{airport_name}/flights")
     public class FlightsController {
-       @Autowired
+
        private final FlightsService flightsService;
-       private final AirportService airportService;
 
-        public FlightsController(FlightsService flightsService, AirportService airportService) {
+        public FlightsController(FlightsService flightsService) {
             this.flightsService = flightsService;
-            this.airportService = airportService;
-
         }
 
         @PostMapping("/add-flight")
-        public Flights addFlight(@PathVariable("airport_name") String name,  @RequestBody Flights flights){
-            return flightsService.save(flights);
+        public HttpStatus addFlight(@PathVariable("airport_name") String name, @RequestBody Flights flights) throws ResponseNotFoundException {
+            return flightsService.addFlight(name,flights);
+        }
+        @DeleteMapping("/delete-flights/{id}")
+        public HttpStatus deleteFlight(@PathVariable("airport_name") String name, @PathVariable Long id) throws ResponseNotFoundException {
+            return flightsService.deleteFlight(id);
         }
 
         @GetMapping("/allFlights")
         public ResponseEntity<List<Flights>> getAllFlights(@PathVariable("airport_name") String name) {
             return flightsService.getAllFlightOfAirport(name);
+        }
+
+        @PostMapping("{id}/addPlane/{plane_id}")
+        private HttpStatus addPlane(@PathVariable String airport_name, @PathVariable Long id,@PathVariable Long plane_id) throws PlaneNotFoundException {
+            return flightsService.addPlaneToFlight(id,plane_id);
 
         }
 
-
-        @PostMapping("/{id}/addFlight")
-        public Flights addFlight(@RequestBody Flights flights, @PathVariable Long id){
-            Airport airport = airportService.findAirportById(id);
-            flights.setAirport(airport);
-            return flightsService.save(flights);
-        }
     }

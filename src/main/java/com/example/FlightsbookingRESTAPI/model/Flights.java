@@ -37,9 +37,6 @@ public class Flights extends FlightsDTO {
     private Airport airport;
 
 
-    @Column(name = "passenger")
-    @OneToMany(mappedBy = "flights", cascade = CascadeType.ALL)
-    private List<Passenger> passenger;
 
 
     @Column(name = "reservation")
