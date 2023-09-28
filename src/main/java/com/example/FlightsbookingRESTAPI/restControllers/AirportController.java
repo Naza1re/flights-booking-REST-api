@@ -19,7 +19,6 @@ public class AirportController {
 
     public AirportController(AirportService airportService) {
         this.airportService = airportService;
-
     }
 
     @PostMapping("/add-airport")
@@ -34,12 +33,12 @@ public class AirportController {
     @DeleteMapping(path = "/{airport_name}")
     public HttpStatus deleteAirport(@PathVariable("airport_name") String airportName) throws ResponseNotFoundException {
         return airportService.deleteAirportByName(airportName);
-
     }
-    @GetMapping("/allAirports")
+    @GetMapping("/all-airports")
     public List<Airport> getAllAirport(){
         return airportService.getAllAirports();
     }
+    // almost done
 
 
 

@@ -27,12 +27,16 @@
         public HttpStatus addFlight(@PathVariable("airport_name") String name, @RequestBody Flights flights) throws ResponseNotFoundException {
             return flightsService.addFlight(name,flights);
         }
-        @DeleteMapping("/delete-flights/{id}")
+        @DeleteMapping("/{id}/delete")
         public HttpStatus deleteFlight(@PathVariable("airport_name") String name, @PathVariable Long id) throws ResponseNotFoundException {
             return flightsService.deleteFlight(id);
         }
+        @GetMapping("/{id}")
+        public Flights getFlight(@PathVariable Long id){
+            return flightsService.getFlightsById(id);
+        }
 
-        @GetMapping("/allFlights")
+        @GetMapping("/all-flights")
         public ResponseEntity<List<Flights>> getAllFlights(@PathVariable("airport_name") String name) {
             return flightsService.getAllFlightOfAirport(name);
         }
@@ -42,5 +46,6 @@
             return flightsService.addPlaneToFlight(id,plane_id);
 
         }
+        //almost done
 
     }

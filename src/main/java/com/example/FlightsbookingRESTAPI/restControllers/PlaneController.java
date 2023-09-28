@@ -10,27 +10,29 @@ import com.example.FlightsbookingRESTAPI.services.PlaneService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/{airport_name}/planes")
 public class PlaneController {
 
     private final PlaneService planeService;
-    private final FlightsService flightsService;
 
-    public PlaneController(PlaneService planeService, FlightsService flightsService) {
+    public PlaneController(PlaneService planeService) {
         this.planeService = planeService;
-        this.flightsService = flightsService;
     }
 
-    @PostMapping("/add-plane/{type_of_plane}")
-    public HttpStatus addPlane(@PathVariable("type_of_plane") String type, @PathVariable("airport_name") String name, @RequestBody Plane plane) throws AirportNotFoundException, ResponseNotFoundException {
-        return planeService.addPlane(name,plane,type);
+    @PostMapping("/add-plane")
+    public HttpStatus addPlane(@PathVariable("airport_name") String name, @RequestBody Plane plane) throws AirportNotFoundException, ResponseNotFoundException {
+        return planeService.addPlane(name,plane);
     }
     @DeleteMapping("/delete-plane")
     public HttpStatus deletePlane(@PathVariable String airport_name,Long id) throws AirportNotFoundException {
         return planeService.delete(airport_name,id);
-
-
+    }
+    @GetMapping("/all-planes")
+    public List<Plane> getAllPlanes(@PathVariable String airport_name) throws AirportNotFoundException {
+        return planeService.getAllPlanes(airport_name);
     }
 
 

@@ -3,10 +3,10 @@ package com.example.FlightsbookingRESTAPI.services;
 import com.example.FlightsbookingRESTAPI.exeptions.AirportNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Airport;
-import com.example.FlightsbookingRESTAPI.model.Passenger;
+
 import com.example.FlightsbookingRESTAPI.model.Plane;
 import com.example.FlightsbookingRESTAPI.repository.AirportRepository;
-import com.example.FlightsbookingRESTAPI.repository.PassengerRepository;
+
 import com.example.FlightsbookingRESTAPI.repository.PlaneRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.IncorrectResultSetColumnCountException;
@@ -23,47 +23,15 @@ public class PlaneService {
 
     private final PlaneRepository planeRepository;
     private final AirportRepository airportRepository;
-    private final PassengerRepository passengerRepository;
 
 
-    public PlaneService(PlaneRepository planeRepository, AirportRepository airportService1, PassengerRepository passengerRepository) {
+
+    public PlaneService(PlaneRepository planeRepository, AirportRepository airportService1) {
         this.planeRepository = planeRepository;
         this.airportRepository = airportService1;
-        this.passengerRepository = passengerRepository;
     }
 
-    public Plane save(Plane plane){
-        return planeRepository.save(plane);
-    }
-    public HttpStatus addPlane(String airportName,Plane plane,String type) throws ResponseNotFoundException, AirportNotFoundException, IncorrectResultSetColumnCountException {
-        Optional<Airport> opt_airport = airportRepository.findByName(airportName);
-        if(opt_airport.isPresent()){
-            plane.setAirport(opt_airport.get());
-            planeRepository.save(plane);
-            if(type.equals("Airbus")){
-                for(int i = 0;i<30;i++){
-                    Passenger p = new Passenger();
-                    p.setSeat(i);
-                    p.setPlane(plane);
-                    passengerRepository.save(p);
-                }
-            }
-            else if(type.equals("Boeng")){
-                for(int i = 0;i<20;i++){
-                    Passenger p = new Passenger();
-                    p.setSeat(i);
-                    p.setPlane(plane);
-                    passengerRepository.save(p);
 
-                }
-                return HttpStatus.OK;
-            }else {
-                return HttpStatus.OK;
-            }
-        }
-        else throw new AirportNotFoundException("airport'" + airportName+"'not found");
-        return HttpStatus.BAD_REQUEST;
-    }
 
     public List<Plane> getAllReservations(){
         return planeRepository.findAll();
@@ -79,5 +47,33 @@ public class PlaneService {
             return HttpStatus.OK;
         }
         else throw new AirportNotFoundException("airport'" + airportName+"'not found");
+    }
+
+    public HttpStatus addPlane(String name, Plane plane) throws AirportNotFoundException {
+        Optional<Airport> opt_airport = airportRepository.findByName(name);
+        if(opt_airport.isPresent()){
+            plane.setAirport(opt_airport.get());
+            planeRepository.save(plane);
+            return HttpStatus.CREATED;
+        }
+        else throw new AirportNotFoundException("airport '" + name + "' not found");
+
+    }
+
+    public List<Plane> getAllPlanes(String airport_name) throws AirportNotFoundException {
+        List<Plane> allPlanes =  planeRepository.findAll();
+        List<Plane> filteredPlanes = new ArrayList<>();
+
+        Optional<Airport> opt_airport = airportRepository.findByName(airport_name);
+        if(opt_airport.isPresent()){
+            for(Plane plane : allPlanes){
+                if(plane.getAirport().getName().equals(airport_name)){
+                    filteredPlanes.add(plane);
+                }
+            }
+            return filteredPlanes;
+        }
+        else throw new AirportNotFoundException("airport '" + airport_name + "' not found");
+
     }
 }

@@ -39,9 +39,6 @@ public class Plane {
     private List<Flights> flights;
 
 
-    @Column(name = "passenger")
-    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
-    private List<Passenger> passenger;
 
 
     public Plane() {

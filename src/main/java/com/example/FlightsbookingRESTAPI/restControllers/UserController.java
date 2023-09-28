@@ -1,9 +1,11 @@
 package com.example.FlightsbookingRESTAPI.restControllers;
 
+import com.example.FlightsbookingRESTAPI.exeptions.UserNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.User;
 import com.example.FlightsbookingRESTAPI.repository.UserRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.FlightsbookingRESTAPI.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,10 +13,28 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController( UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/add-user")
+    HttpStatus addUser(@RequestBody User user){
+        return userService.save(user);
+    }
+    @GetMapping("/all-users")
+    List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) throws UserNotFoundException {
+        return userService.getUserById(id);
+    }
+
+    @DeleteMapping("{id}/delete")
+    public HttpStatus deleteUser(@PathVariable Long id) throws UserNotFoundException {
+        return userService.deleteUserById(id);
     }
 
 

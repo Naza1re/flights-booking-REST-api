@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "reservation")
 public class Reservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonIgnore
     @ManyToOne
@@ -22,9 +23,8 @@ public class Reservation {
     private Flights flights;
 
 
-    @OneToOne
-    @JoinColumn(name = "passenger_id")
-    private Passenger passenger;
+    @Column(name = "seat")
+    private String seat;
 
     @JsonIgnore
     @ManyToOne

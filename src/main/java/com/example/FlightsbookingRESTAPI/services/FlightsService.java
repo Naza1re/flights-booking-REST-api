@@ -73,7 +73,7 @@ public class FlightsService {
         return flightRepository.findAll();
     }
     public Flights getFlightsById(Long id){
-        return flightRepository.getReferenceById(id);
+        return flightRepository.getFlightsById(id);
     }
 
     public HttpStatus addPlaneToFlight(Long id, Long planeId) throws PlaneNotFoundException {
