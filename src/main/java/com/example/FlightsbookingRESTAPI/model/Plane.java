@@ -19,9 +19,6 @@ public class Plane {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "pilot_id")
-    private Pilot pilot;
 
     public Plane(String name,Pilot pilot){
         this.name = name;
@@ -33,10 +30,6 @@ public class Plane {
     private Airport airport;
 
 
-    @JsonIgnore
-    @Column(name = "flights")
-    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
-    private List<Flights> flights;
 
 
 

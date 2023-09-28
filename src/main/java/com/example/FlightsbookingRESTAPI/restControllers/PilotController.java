@@ -26,6 +26,10 @@ public class PilotController {
     HttpStatus deletePilot(@PathVariable Long id) throws PilotNotFoundException {
         return pilotService.delete(id);
     }
+    @GetMapping("/{id}")
+    public Pilot getPilot(@PathVariable Long id){
+        return pilotService.getPilotById(id);
+    }
     @GetMapping("/all-pilots")
     List<Pilot> getAllPilots(@PathVariable String airport_name){
         return pilotService.getAllPilots(airport_name);

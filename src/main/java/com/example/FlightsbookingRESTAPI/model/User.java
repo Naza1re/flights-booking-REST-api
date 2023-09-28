@@ -1,5 +1,6 @@
 package com.example.FlightsbookingRESTAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -25,7 +26,7 @@ public class User {
     @Column(name = "phone")
     private String phone;
     
-
+    @JsonIgnore
     @Column(name = "reservation")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservations;

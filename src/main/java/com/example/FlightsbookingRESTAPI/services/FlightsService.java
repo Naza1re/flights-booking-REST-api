@@ -1,12 +1,15 @@
 package com.example.FlightsbookingRESTAPI.services;
 
+import com.example.FlightsbookingRESTAPI.exeptions.PilotNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.PlaneNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Airport;
 import com.example.FlightsbookingRESTAPI.model.Flights;
+import com.example.FlightsbookingRESTAPI.model.Pilot;
 import com.example.FlightsbookingRESTAPI.model.Plane;
 import com.example.FlightsbookingRESTAPI.repository.AirportRepository;
 import com.example.FlightsbookingRESTAPI.repository.FlightRepository;
+import com.example.FlightsbookingRESTAPI.repository.PilotRepository;
 import com.example.FlightsbookingRESTAPI.repository.PlaneRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +29,15 @@ public class FlightsService {
     @Autowired
     private final AirportRepository airportRepository;
     private final PlaneRepository planeRepository;
+    private final PilotRepository pilotRepository;
 
 
     @Autowired
-    public FlightsService(FlightRepository flightRepository, AirportRepository airportRepository, PlaneRepository planeRepository) {
+    public FlightsService(FlightRepository flightRepository, AirportRepository airportRepository, PlaneRepository planeRepository, PilotRepository pilotRepository) {
         this.flightRepository = flightRepository;
         this.airportRepository = airportRepository;
         this.planeRepository = planeRepository;
+        this.pilotRepository = pilotRepository;
     }
 
 
@@ -87,5 +92,18 @@ public class FlightsService {
             return HttpStatus.OK;
         }
         else throw new PlaneNotFoundException("plane with id : '"+planeId+"'not founde");
+    }
+
+    public HttpStatus addPilotToFlight(Long id, Long pilot_id) throws PilotNotFoundException {
+
+        Optional<Pilot> opt_pilot = pilotRepository.getPilotById(pilot_id);
+        if(opt_pilot.isPresent()){
+            Flights flights = flightRepository.getFlightsById(id);
+            flights.setPilot(opt_pilot.get());
+            flightRepository.save(flights);
+            return HttpStatus.OK;
+        }
+        else throw new PilotNotFoundException("pilot with id : '"+pilot_id+"'not founde");
+
     }
 }

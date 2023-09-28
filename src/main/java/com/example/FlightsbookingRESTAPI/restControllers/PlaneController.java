@@ -26,9 +26,13 @@ public class PlaneController {
     public HttpStatus addPlane(@PathVariable("airport_name") String name, @RequestBody Plane plane) throws AirportNotFoundException, ResponseNotFoundException {
         return planeService.addPlane(name,plane);
     }
-    @DeleteMapping("/delete-plane")
-    public HttpStatus deletePlane(@PathVariable String airport_name,Long id) throws AirportNotFoundException {
+    @DeleteMapping("{id}/delete")
+    public HttpStatus deletePlane(@PathVariable String airport_name, @PathVariable Long id) throws AirportNotFoundException {
         return planeService.delete(airport_name,id);
+    }
+    @GetMapping("/{id}")
+    public Plane getPlane(@PathVariable Long id){
+        return planeService.getPlaneById(id);
     }
     @GetMapping("/all-planes")
     public List<Plane> getAllPlanes(@PathVariable String airport_name) throws AirportNotFoundException {

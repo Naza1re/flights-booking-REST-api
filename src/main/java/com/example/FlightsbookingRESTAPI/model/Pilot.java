@@ -21,10 +21,11 @@ public class Pilot {
 
     @Column(name = "age")
     private int age;
+
     @JsonIgnore
-    @OneToOne(mappedBy = "pilot", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Plane plane;
+    @Column(name = "flights")
+    @OneToMany(mappedBy = "pilot", cascade = CascadeType.ALL)
+    private List<Flights> flightsList;
 
 
     public Pilot(String name,int age){

@@ -1,5 +1,6 @@
     package com.example.FlightsbookingRESTAPI.restControllers;
 
+    import com.example.FlightsbookingRESTAPI.exeptions.PilotNotFoundException;
     import com.example.FlightsbookingRESTAPI.exeptions.PlaneNotFoundException;
     import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
 
@@ -41,11 +42,16 @@
             return flightsService.getAllFlightOfAirport(name);
         }
 
-        @PostMapping("{id}/addPlane/{plane_id}")
-        private HttpStatus addPlane(@PathVariable String airport_name, @PathVariable Long id,@PathVariable Long plane_id) throws PlaneNotFoundException {
+        @PostMapping("{id}/add-plane/{plane_id}")
+        public HttpStatus addPlane(@PathVariable String airport_name, @PathVariable Long id,@PathVariable Long plane_id) throws PlaneNotFoundException {
             return flightsService.addPlaneToFlight(id,plane_id);
 
         }
-        //almost done
+        @PostMapping("{id}/add-pilot/{pilot_id}")
+        public HttpStatus addPilot(@PathVariable Long id, @PathVariable Long pilot_id) throws PilotNotFoundException {
+            return flightsService.addPilotToFlight(id,pilot_id);
+        }
+
+        // done
 
     }

@@ -36,7 +36,9 @@ public class Flights extends FlightsDTO {
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
-
+    @ManyToOne
+    @JoinColumn(name = "pilot_id")
+    private Pilot pilot;
 
 
     @Column(name = "reservation")
@@ -53,6 +55,12 @@ public class Flights extends FlightsDTO {
     @ManyToOne
     @JoinColumn(name = "plane_id")
     private Plane plane;
+
+
+
+
+
+
 
 
 
