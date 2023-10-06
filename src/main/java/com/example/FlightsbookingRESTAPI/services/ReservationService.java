@@ -1,5 +1,6 @@
 package com.example.FlightsbookingRESTAPI.services;
 
+import com.example.FlightsbookingRESTAPI.exeptions.ReservationNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.UserNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Flights;
 import com.example.FlightsbookingRESTAPI.model.Reservation;
@@ -39,6 +40,9 @@ public class ReservationService {
     public Reservation getReservationById(Long id){
         return repository.getReferenceById(id);
     }
+    public void delete(Reservation reservation){
+        reservationRepository.delete(reservation);
+    }
 
     public HttpStatus makeReserve(Long id, Reservation reservation,String name) throws UserNotFoundException {
         Flights flights = flightRepository.getFlightsById(id);
@@ -63,5 +67,15 @@ public class ReservationService {
             }
         }
         return filteredReservation;
+    }
+
+    public HttpStatus delete(Long id) throws ReservationNotFoundException {
+        Optional<Reservation> opt_reservation = reservationRepository.getReservationById(id);
+        if(opt_reservation.isPresent()){
+            reservationRepository.delete(opt_reservation.get());
+            return HttpStatus.OK;
+        }
+        else
+            throw new ReservationNotFoundException("reservation with id '"+ id+ "' not found");
     }
 }

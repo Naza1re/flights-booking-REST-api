@@ -27,6 +27,11 @@ public class Pilot {
     @OneToMany(mappedBy = "pilot", cascade = CascadeType.ALL)
     private List<Flights> flightsList;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "airport_id")
+    private Airport airport;
+
 
     public Pilot(String name,int age){
         this.name = name;

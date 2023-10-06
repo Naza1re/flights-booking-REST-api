@@ -1,5 +1,6 @@
 package com.example.FlightsbookingRESTAPI.restControllers;
 
+import com.example.FlightsbookingRESTAPI.exeptions.AirportNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.PilotNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Pilot;
 import com.example.FlightsbookingRESTAPI.services.PilotService;
@@ -31,7 +32,7 @@ public class PilotController {
         return pilotService.getPilotById(id);
     }
     @GetMapping("/all-pilots")
-    List<Pilot> getAllPilots(@PathVariable String airport_name){
+    List<Pilot> getAllPilots(@PathVariable String airport_name) throws AirportNotFoundException {
         return pilotService.getAllPilots(airport_name);
     }
 

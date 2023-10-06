@@ -3,7 +3,6 @@ package com.example.FlightsbookingRESTAPI.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.PersistenceConstructor;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@Table(name = "User")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,21 +1,29 @@
 package com.example.FlightsbookingRESTAPI.services;
 
+import com.example.FlightsbookingRESTAPI.exeptions.AirportNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.PilotNotFoundException;
+import com.example.FlightsbookingRESTAPI.model.Airport;
 import com.example.FlightsbookingRESTAPI.model.Pilot;
-import com.example.FlightsbookingRESTAPI.model.Reservation;
+import com.example.FlightsbookingRESTAPI.model.Plane;
+import com.example.FlightsbookingRESTAPI.repository.AirportRepository;
 import com.example.FlightsbookingRESTAPI.repository.PilotRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+
 
 @Service
 public class PilotService {
     private final PilotRepository pilotRepository;
+    private final AirportRepository airportRepository;
 
-    public PilotService(PilotRepository pilotRepository) {
+    public PilotService(PilotRepository pilotRepository, AirportRepository airportRepository) {
         this.pilotRepository = pilotRepository;
+        this.airportRepository = airportRepository;
     }
 
     public Pilot save(Pilot pilot){
@@ -24,11 +32,21 @@ public class PilotService {
     public void delete(Pilot pilot){
         pilotRepository.delete(pilot);
     }
-    public List<Pilot> getAllPilots(String airport_name){
+    public List<Pilot> getAllPilots(String airport_name) throws AirportNotFoundException {
+        List<Pilot> allPilots =  pilotRepository.findAll();
+        List<Pilot> filteredPilots = new ArrayList<>();
 
+        Optional<Airport> opt_airport = airportRepository.findByName(airport_name);
+        if(opt_airport.isPresent()){
+            for(Pilot pilot : allPilots){
+                if(pilot.getAirport().getName().equals(airport_name)){
+                    filteredPilots.add(pilot);
+                }
+            }
+            return filteredPilots;
+        }
+        else throw new AirportNotFoundException("airport '" + airport_name + "' not found");
 
-
-          return pilotRepository.findAll();
     }
     public Pilot getPilotById(Long id){
         return pilotRepository.getReferenceById(id);

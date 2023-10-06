@@ -47,10 +47,12 @@
             return flightsService.addPlaneToFlight(id,plane_id);
 
         }
+
         @PostMapping("{id}/add-pilot/{pilot_id}")
-        public HttpStatus addPilot(@PathVariable Long id, @PathVariable Long pilot_id) throws PilotNotFoundException {
+        public HttpStatus addPilot(@PathVariable Long id, @PathVariable Long pilot_id, @PathVariable String airport_name) throws PilotNotFoundException {
             return flightsService.addPilotToFlight(id,pilot_id);
         }
+
 
         // done
 
