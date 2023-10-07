@@ -30,6 +30,11 @@ public class Plane {
     private Airport airport;
 
 
+    @Column(name = "passenger")
+    @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
+    private List<Passenger> passengerList;
+
+
 
 
 

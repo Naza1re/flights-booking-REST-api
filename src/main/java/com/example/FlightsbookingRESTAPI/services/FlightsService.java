@@ -1,5 +1,6 @@
 package com.example.FlightsbookingRESTAPI.services;
 
+import com.example.FlightsbookingRESTAPI.exeptions.FlightNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.PilotNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.PlaneNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.ResponseNotFoundException;
@@ -105,5 +106,16 @@ public class FlightsService {
         }
         else throw new PilotNotFoundException("pilot with id : '"+pilot_id+"'not founde");
 
+    }
+
+    public HttpStatus startFlight(long id) throws FlightNotFoundException {
+        Optional<Flights> opt_flight = flightRepository.findById(id);
+        if(opt_flight.isPresent()){
+            Flights flights = opt_flight.get();
+            flights.setActive(true);
+            flightRepository.save(flights);
+            return HttpStatus.OK;
+        }
+        else throw new FlightNotFoundException("flight with id '"+ id+"' not found");
     }
 }

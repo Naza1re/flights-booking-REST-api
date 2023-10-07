@@ -36,6 +36,9 @@ public class Flights extends FlightsDTO {
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @ManyToOne
     @JoinColumn(name = "pilot_id")
     private Pilot pilot;

@@ -17,14 +17,15 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "flights_id")
     private Flights flights;
 
-
-    @Column(name = "seat")
-    private String seat;
+    @Column(name = "passenger")
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    private List<Passenger> passengerList;
 
 
     @ManyToOne

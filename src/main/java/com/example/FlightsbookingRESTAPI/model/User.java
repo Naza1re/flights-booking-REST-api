@@ -31,6 +31,9 @@ public class User {
     private List<Reservation> reservations;
 
 
+
+
+
     public User(String name, String email, String phone) {
         this.name = name;
         this.email = email;
