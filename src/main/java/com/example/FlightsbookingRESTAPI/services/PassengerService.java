@@ -1,5 +1,7 @@
 package com.example.FlightsbookingRESTAPI.services;
 
+import com.example.FlightsbookingRESTAPI.exeptions.FlightNotFoundException;
+import com.example.FlightsbookingRESTAPI.exeptions.PassengerNotFoundException;
 import com.example.FlightsbookingRESTAPI.exeptions.PlaneNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Flights;
 import com.example.FlightsbookingRESTAPI.model.Passenger;
@@ -32,7 +34,7 @@ public class PassengerService {
         if (opt_plane.isPresent()) {
             List<Passenger> passengers = opt_plane.get().getPassengerList();
             for (int i = 0; i < passengers.size(); i++) {
-                passengers.get(i).setReservation(null);
+                passengers.get(i).setUser(null);
                 passengerRepository.save(passengers.get(i));
                 return HttpStatus.OK;
             }
@@ -43,4 +45,21 @@ public class PassengerService {
 
     }
 
+    public List<Passenger> getAllPassengerOfPlane(long id) throws FlightNotFoundException {
+        Optional<Flights> opt_flights = flightRepository.findById(id);
+        if(opt_flights.isPresent()){
+            return opt_flights.get().getPlane().getPassengerList();
+        }
+        else
+            throw new FlightNotFoundException("Flight with id '"+id+"' not found");
+    }
+
+    public Passenger getPassengerById(long seatId) throws PassengerNotFoundException {
+        Optional<Passenger> opt_passenger = passengerRepository.findById(seatId);
+        if(opt_passenger.isPresent()){
+            return opt_passenger.get();
+        }
+        else throw new PassengerNotFoundException("seat with id '"+seatId+"' not found");
+
+    }
 }

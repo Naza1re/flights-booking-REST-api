@@ -24,14 +24,10 @@ public class User {
     
     @Column(name = "phone")
     private String phone;
-    
     @JsonIgnore
-    @Column(name = "reservation")
+    @Column(name = "passenger")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Reservation> reservations;
-
-
-
+    private List<Passenger> passengerList;
 
 
     public User(String name, String email, String phone) {

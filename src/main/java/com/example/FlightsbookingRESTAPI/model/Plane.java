@@ -29,14 +29,10 @@ public class Plane {
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
-
+    @JsonIgnore
     @Column(name = "passenger")
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
     private List<Passenger> passengerList;
-
-
-
-
 
 
     public Plane() {

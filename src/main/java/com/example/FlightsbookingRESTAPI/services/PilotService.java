@@ -43,7 +43,7 @@ public class PilotService {
                     filteredPilots.add(pilot);
                 }
             }
-            return filteredPilots;
+            return filteredPilots.stream().sorted((p,p2)->p2.getAge()-p.getAge()).toList();
         }
         else throw new AirportNotFoundException("airport '" + airport_name + "' not found");
 

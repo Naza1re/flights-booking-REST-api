@@ -20,17 +20,12 @@ public class Passenger {
     @JoinColumn(name = "plane_id")
     private Plane plane;
 
-
     @ManyToOne
-    @JoinColumn(name = "reservation_id")
-    private  Reservation reservation;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "free")
-    private boolean free;
 
-    public boolean isFree(){
-        return this.free;
-    }
+
 
 
 

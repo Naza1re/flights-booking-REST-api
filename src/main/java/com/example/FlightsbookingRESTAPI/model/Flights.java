@@ -44,9 +44,6 @@ public class Flights extends FlightsDTO {
     private Pilot pilot;
 
 
-    @Column(name = "reservation")
-    @OneToMany(mappedBy = "flights",cascade = CascadeType.ALL)
-    private List<Reservation> reservation;
 
     public Flights(String name, String departure_date, String departure_time, String arrival) {
         this.name = name;
