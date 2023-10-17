@@ -36,6 +36,10 @@ public class UserController {
     public HttpStatus deleteUser(@PathVariable Long id) throws UserNotFoundException {
         return userService.deleteUserById(id);
     }
+    @GetMapping("/getUserByName/{user_name}")
+    public User getUserByName(@PathVariable String user_name) throws UserNotFoundException {
+        return userService.getUserByName(user_name);
+    }
 
 
 }

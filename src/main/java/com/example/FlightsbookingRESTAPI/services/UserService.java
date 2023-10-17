@@ -43,4 +43,13 @@ public class UserService {
         else throw new UserNotFoundException(" user with id '"+ id+"'not found");
 
     }
+
+    public User getUserByName(String userName) throws UserNotFoundException {
+        Optional<User> opt_user = userRepository.getUserByName(userName);
+        if(opt_user.isPresent()){
+            return opt_user.get();
+        }
+        else throw new UserNotFoundException("user with name '"+ userName +"' not found");
+
+    }
 }

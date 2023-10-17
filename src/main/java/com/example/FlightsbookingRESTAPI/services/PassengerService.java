@@ -6,6 +6,7 @@ import com.example.FlightsbookingRESTAPI.exeptions.PlaneNotFoundException;
 import com.example.FlightsbookingRESTAPI.model.Flights;
 import com.example.FlightsbookingRESTAPI.model.Passenger;
 import com.example.FlightsbookingRESTAPI.model.Plane;
+import com.example.FlightsbookingRESTAPI.model.User;
 import com.example.FlightsbookingRESTAPI.repository.FlightRepository;
 import com.example.FlightsbookingRESTAPI.repository.PassengerRepository;
 import com.example.FlightsbookingRESTAPI.repository.PlaneRepository;
@@ -61,5 +62,17 @@ public class PassengerService {
         }
         else throw new PassengerNotFoundException("seat with id '"+seatId+"' not found");
 
+    }
+
+    public HttpStatus makeReservation(long seatId, User user) throws PassengerNotFoundException {
+
+        Optional<Passenger> opt_passenger = passengerRepository.findById(seatId);
+        if(opt_passenger.isPresent()){
+            Passenger passenger = opt_passenger.get();
+            passenger.setUser(user);
+            passengerRepository.save(passenger);
+            return HttpStatus.OK;
+        }
+        else throw new PassengerNotFoundException("passenger with id'"+ seatId+"' not found");
     }
 }
