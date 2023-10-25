@@ -24,10 +24,9 @@ import java.util.Optional;
 @Service
 public class FlightsService {
 
-    @Autowired
+
     private FlightRepository flightRepository;
 
-    @Autowired
     private final AirportRepository airportRepository;
     private final PlaneRepository planeRepository;
     private final PilotRepository pilotRepository;
@@ -59,6 +58,7 @@ public class FlightsService {
     public HttpStatus addFlight(String airportName, Flights flights) throws ResponseNotFoundException {
         Optional<Airport> opt_airport = airportRepository.findByName(airportName);
         if(opt_airport.isPresent()){
+            System.out.println(opt_airport.get());
             flights.setAirport(opt_airport.get());
             flightRepository.save(flights);
             return HttpStatus.CREATED;
@@ -113,6 +113,7 @@ public class FlightsService {
         if(opt_flight.isPresent()){
             Flights flights = opt_flight.get();
             flights.setActive(true);
+            flights.getPlane().setCount_flights(flights.getPlane().getCount_flights()+1);
             flightRepository.save(flights);
             return HttpStatus.OK;
         }

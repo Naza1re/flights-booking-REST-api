@@ -26,6 +26,7 @@
 
         @PostMapping("/add-flight")
         public HttpStatus addFlight(@PathVariable("airport_name") String name, @RequestBody Flights flights) throws ResponseNotFoundException {
+            System.out.println(flights);
             return flightsService.addFlight(name,flights);
         }
         @DeleteMapping("/{id}/delete")

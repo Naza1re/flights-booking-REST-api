@@ -36,6 +36,21 @@ public class Flights extends FlightsDTO {
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
+    @Override
+    public String toString() {
+        return "Flights{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", departure_date='" + departure_date + '\'' +
+                ", departure_time='" + departure_time + '\'' +
+                ", arrival='" + arrival + '\'' +
+                ", airport=" + airport +
+                ", isActive=" + isActive +
+                ", pilot=" + pilot +
+                ", plane=" + plane +
+                '}';
+    }
+
     @Column(name = "is_active")
     private boolean isActive;
 

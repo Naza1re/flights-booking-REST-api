@@ -34,7 +34,8 @@ public class Plane {
     @OneToMany(mappedBy = "plane", cascade = CascadeType.ALL)
     private List<Passenger> passengerList;
 
-
+    @Column(name = "count-flights")
+    private int count_flights;
     public Plane() {
 
     }
