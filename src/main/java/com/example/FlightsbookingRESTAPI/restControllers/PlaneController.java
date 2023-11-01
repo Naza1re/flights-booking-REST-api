@@ -38,6 +38,10 @@ public class PlaneController {
     public List<Plane> getAllPlanes(@PathVariable String airport_name) throws AirportNotFoundException {
         return planeService.getAllPlanes(airport_name);
     }
+    @GetMapping("/free")
+    public List<Plane> getAllFreePlanes(@PathVariable String airport_name){
+        return planeService.getAllFreePlanes(airport_name);
+    }
 
 
 

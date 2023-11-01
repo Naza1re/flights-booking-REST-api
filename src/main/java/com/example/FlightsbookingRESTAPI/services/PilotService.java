@@ -63,4 +63,13 @@ public class PilotService {
     }
 
 
+    public List<Pilot> getAllFreePilotsOfAirport(String airportName) throws AirportNotFoundException {
+        Optional<Airport> opt_airport = airportRepository.findByName(airportName);
+        if(opt_airport.isPresent()){
+            return pilotRepository.getAllByAirport_Name(airportName);
+
+        }
+        else throw new AirportNotFoundException("airport with name '"+opt_airport+"' not found");
+
+    }
 }

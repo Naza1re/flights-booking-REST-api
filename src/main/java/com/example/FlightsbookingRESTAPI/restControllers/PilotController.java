@@ -35,6 +35,11 @@ public class PilotController {
     List<Pilot> getAllPilots(@PathVariable String airport_name) throws AirportNotFoundException {
         return pilotService.getAllPilots(airport_name);
     }
+    @GetMapping("/free")
+    List<Pilot> getAllFreePilotsOfAirport(@PathVariable String airport_name) throws AirportNotFoundException {
+        return pilotService.getAllFreePilotsOfAirport(airport_name);
+    }
+
 
 
 }

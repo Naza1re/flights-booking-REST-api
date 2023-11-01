@@ -13,6 +13,7 @@ import org.springframework.jdbc.IncorrectResultSetColumnCountException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,4 +77,16 @@ public class PlaneService {
         else throw new AirportNotFoundException("airport '" + airport_name + "' not found");
 
     }
+
+    public List<Plane> getAllFreePlanes(String airportName) {
+        Optional<Airport> opt_Airport = airportRepository.findByName(airportName);
+        if (opt_Airport.isPresent()) {
+            Long airportId = opt_Airport.get().getId();
+            System.out.println(planeRepository.findFreePlanesByAirportId(airportId));
+            return planeRepository.findFreePlanesByAirportId(airportId);
+        }
+        else
+            return null;
+    }
+
 }
