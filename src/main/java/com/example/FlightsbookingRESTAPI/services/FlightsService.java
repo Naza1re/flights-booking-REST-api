@@ -86,13 +86,14 @@ public class FlightsService {
 
         Flights flights = flightRepository.getFlightsById(id);
 
-        Optional<Plane> opt_plane = planeRepository.findById(id);
+        Optional<Plane> opt_plane = planeRepository.findById(planeId);
         if(opt_plane.isPresent()){
+            flights.setPlane(null);
             flights.setPlane(opt_plane.get());
             flightRepository.save(flights);
             return HttpStatus.OK;
         }
-        else throw new PlaneNotFoundException("plane with id : '"+planeId+"'not founde");
+        else throw new PlaneNotFoundException("plane with id : '"+planeId+"' not found");
     }
 
     public HttpStatus addPilotToFlight(Long id, Long pilot_id) throws PilotNotFoundException {

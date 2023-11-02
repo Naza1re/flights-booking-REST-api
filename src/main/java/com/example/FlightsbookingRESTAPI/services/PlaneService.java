@@ -81,9 +81,8 @@ public class PlaneService {
     public List<Plane> getAllFreePlanes(String airportName) {
         Optional<Airport> opt_Airport = airportRepository.findByName(airportName);
         if (opt_Airport.isPresent()) {
-            Long airportId = opt_Airport.get().getId();
-            System.out.println(planeRepository.findFreePlanesByAirportId(airportId));
-            return planeRepository.findFreePlanesByAirportId(airportId);
+            System.out.println(planeRepository.getAllByAirport_Name(airportName));
+            return planeRepository.getAllByAirport_Name(airportName);
         }
         else
             return null;
