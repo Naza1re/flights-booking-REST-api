@@ -81,7 +81,6 @@ public class PlaneService {
     public List<Plane> getAllFreePlanes(String airportName) {
         Optional<Airport> opt_Airport = airportRepository.findByName(airportName);
         if (opt_Airport.isPresent()) {
-            System.out.println(planeRepository.getAllByAirport_Name(airportName));
             return planeRepository.getAllByAirport_Name(airportName);
         }
         else

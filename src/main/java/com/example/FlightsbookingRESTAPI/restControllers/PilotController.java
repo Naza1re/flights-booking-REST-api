@@ -20,15 +20,15 @@ public class PilotController {
     }
 
     @PostMapping("/add-pilot")
-    public Pilot addPilot(@RequestBody Pilot pilot, @PathVariable String airport_name){
-       return  pilotService.save(pilot);
+    public HttpStatus addPilot(@RequestBody Pilot pilot, @PathVariable String airport_name) throws AirportNotFoundException {
+       return  pilotService.save(pilot,airport_name);
     }
     @DeleteMapping( "{id}/delete")
-    HttpStatus deletePilot(@PathVariable Long id) throws PilotNotFoundException {
+    HttpStatus deletePilot(@PathVariable Long id, @PathVariable String airport_name) throws PilotNotFoundException {
         return pilotService.delete(id);
     }
     @GetMapping("/{id}")
-    public Pilot getPilot(@PathVariable Long id){
+    public Pilot getPilot(@PathVariable Long id, @PathVariable String airport_name){
         return pilotService.getPilotById(id);
     }
     @GetMapping("/all-pilots")

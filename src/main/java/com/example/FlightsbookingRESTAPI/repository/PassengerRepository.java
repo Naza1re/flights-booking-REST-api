@@ -9,8 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface PassengerRepository extends CrudRepository<Passenger, Id> {
-
-
     Optional<Passenger> findById(long seatId);
-
 }

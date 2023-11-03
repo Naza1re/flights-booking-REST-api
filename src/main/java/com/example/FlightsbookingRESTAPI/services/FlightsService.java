@@ -58,7 +58,6 @@ public class FlightsService {
     public HttpStatus addFlight(String airportName, Flights flights) throws ResponseNotFoundException {
         Optional<Airport> opt_airport = airportRepository.findByName(airportName);
         if(opt_airport.isPresent()){
-            System.out.println(opt_airport.get());
             flights.setAirport(opt_airport.get());
             flightRepository.save(flights);
             return HttpStatus.CREATED;
