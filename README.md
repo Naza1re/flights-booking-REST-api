@@ -1,6 +1,6 @@
 # Flights-booking service
 
-This web service application provide people  with booking flights for travaling
+This web service application provides people with booking flights for travaling
 
 ## Technologies
 
